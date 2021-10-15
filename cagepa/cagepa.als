@@ -28,46 +28,38 @@ fact pontosSet {
     one Oeste
 }
 
-abstract sig Bairros {
-    --hoteis: set Hoteis,
-    --centro: set Centro,
-    --hospitais: set Hospitais,
+abstract sig BairrosAlta {
+    hoteis: set Hoteis,
+    centro: set Centro
+    --hospitais: set Hospitais
     --escolas: set Escolas,
     --creches: set Creches,
     --casas: set Casas
 }
 
-sig Hoteis extends Bairros {
-    alta: set Alta
+abstract sig BairrosMedia {
+    hospitais: set Hospitais
 }
 
-sig Centro extends Bairros {
-    alta: set Alta
+abstract sig BairrosBaixa {
+    escolas: set Escolas,
+    creches: set Creches
 }
 
-sig Hospitais extends Bairros {
-    media: set Media
+abstract sig BairrosMuitoBaixa {
+    casas: set Casas
 }
 
-sig Escolas extends Bairros {
-    baixa: set Baixa
-}
 
-sig Creches extends Bairros {
-    baixa: set Baixa
-}
-
-sig Casas extends Bairros {
-    muitoBaixa: set MuitoBaixa
-}
+sig Hoteis, Centro, Hospitais, Escolas, Creches, Casas {}
 
 
 fact bairrosSet {
-    one Hoteis
-    one Centro
+    --all c: Cagepa | (#c.pontos = 4 )
+    --all h: BairrosAlta | (#h.hoteis = 1)
 }
 
-abstract sig Prioridade extends Bairros {
+abstract sig Prioridade {
     alta: set Alta,
     media: set Media,
     baixa: set Baixa,
@@ -75,21 +67,19 @@ abstract sig Prioridade extends Bairros {
 }
 
 sig Alta extends Prioridade {
-    --centro: set Centro,
-    --hoteis: set Hoteis
+    bairrosAlta: set BairrosAlta
 }
 
 sig Media extends Prioridade {
-    --hospitais: set Hospitais
+    bairrosMedia: set BairrosMedia
 }
 
 sig Baixa extends Prioridade {
-    escolas: set Escolas,
-    creches: set Creches
+    bairrosBaixa: set BairrosBaixa
 }
 
 sig MuitoBaixa extends Prioridade {
-    casas: set Casas
+    bairrosMuitoBaixa: set BairrosMuitoBaixa
 }
 
 fact prioridade {
@@ -104,4 +94,4 @@ fact prioridade {
 
 pred show(){}
 
-run show for 5
+run show for 4
