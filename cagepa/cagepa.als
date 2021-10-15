@@ -28,39 +28,59 @@ fact pontosSet {
     one Oeste
 }
 
-
-sig Bairros extends Pontos {
-    hoteis: set Hoteis,
-    centro: set Centro,
-    hospitais: set Hospitais,
-    escolas: set Escolas,
-    creches: set Creches,
-    casas: set Casas
+abstract sig Bairros {
+    --hoteis: set Hoteis,
+    --centro: set Centro,
+    --hospitais: set Hospitais,
+    --escolas: set Escolas,
+    --creches: set Creches,
+    --casas: set Casas
 }
 
-sig Hoteis, Centro, Hospitais, Escolas, Creches, Casas extends Bairros {}
+sig Hoteis extends Bairros {
+    alta: set Alta
+}
+
+sig Centro extends Bairros {
+    alta: set Alta
+}
+
+sig Hospitais extends Bairros {
+    media: set Media
+}
+
+sig Escolas extends Bairros {
+    baixa: set Baixa
+}
+
+sig Creches extends Bairros {
+    baixa: set Baixa
+}
+
+sig Casas extends Bairros {
+    muitoBaixa: set MuitoBaixa
+}
 
 
 fact bairrosSet {
-    --all b: Bairros | (#b.hoteis = 4)
+    one Hoteis
+    one Centro
 }
 
-
-abstract sig Prioridade {
+abstract sig Prioridade extends Bairros {
     alta: set Alta,
     media: set Media,
     baixa: set Baixa,
     muitoBaixa: set MuitoBaixa
 }
 
-
 sig Alta extends Prioridade {
-    centro: set Centro,
-    hoteis: set Hoteis
+    --centro: set Centro,
+    --hoteis: set Hoteis
 }
 
 sig Media extends Prioridade {
-    hospitais: set Hospitais
+    --hospitais: set Hospitais
 }
 
 sig Baixa extends Prioridade {
@@ -79,8 +99,6 @@ fact prioridade {
     one Baixa
     one MuitoBaixa
 }
-
-
 
 --
 
