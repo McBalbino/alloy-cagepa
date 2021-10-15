@@ -5,10 +5,7 @@ sig Cagepa {
 }
 
 abstract sig Pontos {
-    norte: set Norte,
-    sul: set Sul,
-    leste: set Leste,
-    oeste: set Oeste
+    
 }
 
 sig Norte, Sul, Leste, Oeste extends Pontos {
